@@ -147,7 +147,6 @@ return [
     */
 
     'include' => [
-        'deploy_recipes/custom_tasks.php',
     ],
 
     /*
