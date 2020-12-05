@@ -14,7 +14,7 @@ class StoreController extends Controller
         if (! $store = Store::fromDomain($request->domain)) {
             return response()->json([]);
         }
-        
+
         $resource = new StoreResource($store);
 
         return response()->json($resource->jsonSerialize());
@@ -38,6 +38,6 @@ class StoreController extends Controller
             return redirect()->away('https://ourshop.tools');
         }
 
-        return view('index', ['store_url' => $store->url]);
+        return view('index', ['store_url' => $store->store_url]);
     }
 }
