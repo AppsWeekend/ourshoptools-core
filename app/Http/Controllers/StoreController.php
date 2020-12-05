@@ -31,7 +31,7 @@ class StoreController extends Controller
         $domain = $request->getHttpHost();
 
         if (! $store = Store::fromDomain($domain)) {
-            return redirect()->away();
+            return redirect()->away('https://ourshop.tools');
         }
 
         return view('index', ['store_url' => $store->url]);
