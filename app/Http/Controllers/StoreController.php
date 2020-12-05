@@ -11,7 +11,11 @@ class StoreController extends Controller
 {
     public function get(Request $request)
     {
-        $resource = new StoreResource(Store::fromDomain($request->domain));
+        if (! $store = Store::fromDomain($request->domain)) {
+            return response()->json([]);
+        }
+        
+        $resource = new StoreResource($store);
 
         return response()->json($resource->jsonSerialize());
     }
