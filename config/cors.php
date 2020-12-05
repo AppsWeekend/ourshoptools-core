@@ -25,10 +25,10 @@ return [
 
     'allowed_headers' => ['*'],
 
-    'exposed_headers' => true,
+    'exposed_headers' => [],
 
     'max_age' => false,
 
-    'supports_credentials' => false,
+    'supports_credentials' => true,
 
 ];
