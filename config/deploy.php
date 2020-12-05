@@ -114,7 +114,7 @@ return [
 
     'hosts' => [
         '3.14.230.101' => [
-            'deploy_path' => '/var/www/chunk',
+            'deploy_path' => '/var/www/ourstore',
             'user' => 'ubuntu',
             'identityFile' => '~/.ssh/deployerkey'
         ],
