@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Store;
+use App\Jobs\ProvisionSSL;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateStore;
 use App\Http\Resources\StoreResource;
@@ -22,10 +23,12 @@ class StoreController extends Controller
 
     public function create(CreateStore $request)
     {
-        Store::updateOrCreate([
+        $store = Store::updateOrCreate([
             'domain' => $request->domain], 
             $request->all()
         );
+
+        ProvisionSSL::dispatch($store->domain);
 
         return response()->json(['a_record' => '3.14.230.101']);
     }
