@@ -24,7 +24,7 @@ class StoreController extends Controller
 
     public function create(CreateStore $request)
     {
-        $store = Store::updateOrCreate([
+        $store = Store::firstOrCreate([
             'domain' => $this->strip($request->domain)], 
             $request->except('domain')
         );
