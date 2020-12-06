@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Store;
 use App\Jobs\ProvisionSSL;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateStore;
 use App\Http\Resources\StoreResource;
