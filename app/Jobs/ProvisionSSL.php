@@ -32,6 +32,10 @@ class ProvisionSSL implements ShouldQueue
      */
     public function handle()
     {
-        exec("sudo certbot --nginx -d {$this->domain} --non-interactive --agree-tos -m nwogugabriel@gmail.com --redirect");
+        logger()->info("Dispatch SSL provision");
+
+        $response = exec("sudo certbot --nginx -d {$this->domain} --non-interactive --agree-tos -m nwogugabriel@gmail.com --redirect");
+
+        logger()->info("Response from SSL provisioning: " . $response);
     }
 }

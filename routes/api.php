@@ -21,6 +21,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/', [StoreController::class, 'index']);
 
+Route::get('provision', [StoreController::class, 'provision']);
+
 Route::get('store', [StoreController::class, 'get']);
 
 Route::post('store', [StoreController::class, 'create']);
