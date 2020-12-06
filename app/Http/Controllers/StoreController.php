@@ -51,7 +51,7 @@ class StoreController extends Controller
     {
         $domain = $request->getHttpHost();
 
-        if (! $store = Store::fromDomain($domain)) {
+        if (! $store = Store::fromDomain($this->strip($domain))) {
             return redirect()->away('https://ourshop.tools');
         }
 
@@ -66,6 +66,10 @@ class StoreController extends Controller
 
         if (Str::contains($domain, "http://")) {
             $domain = str_replace("http://", '', $domain);
+        }
+
+        if (Str::contains($domain, "www.")) {
+            $domain = str_replace("www.", '', $domain);
         }
 
         return $domain;
