@@ -6,7 +6,9 @@ use App\Models\Store;
 use App\Jobs\ProvisionSSL;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Services\HtmlService;
 use App\Http\Requests\CreateStore;
+use Illuminate\Support\Facades\Http;
 use App\Http\Resources\StoreResource;
 
 class StoreController extends Controller
@@ -47,7 +49,7 @@ class StoreController extends Controller
 
     }
 
-    public function index(Request $request)
+    public function index(Request $request, HtmlService $service)
     {
         $domain = $request->getHttpHost();
 
@@ -55,7 +57,17 @@ class StoreController extends Controller
             return redirect()->away('https://ourshop.tools');
         }
 
-        return view('index', ['store_url' => $store->store_url]);
+        if (! ($response = Http::get($store->store_url))->successful()) {
+            return redirect()->away('https://ourshop.tools/error');
+        }
+
+        $paytackStoreFrontBody = $service->setHtml($response->body());
+
+        return view('index', [
+            'store_url' => $store->store_url, 
+            'title' => $paytackStoreFrontBody->getTitle(),
+            'metas' => $paytackStoreFrontBody->getMetas()
+        ]);
     }
 
     protected function strip($domain = "")
