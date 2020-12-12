@@ -56,15 +56,17 @@ class StoreController extends Controller
         if (! $store = Store::fromDomain($this->strip($domain))) {
             return redirect()->away('https://ourshop.tools');
         }
+        
+        $targetUrl = $store->store_url . $request->getRequestUri();
 
-        if (! ($response = Http::get($store->store_url))->successful()) {
+        if (! ($response = Http::get($targetUrl))->successful()) {
             return redirect()->away('https://ourshop.tools/error');
         }
 
         $paytackStoreFrontBody = $service->setHtml($response->body());
 
         return view('index', [
-            'store_url' => $store->store_url, 
+            'store_url' => $targetUrl, 
             'title' => $paytackStoreFrontBody->getTitle(),
             'metas' => $paytackStoreFrontBody->getMetas()
         ]);
@@ -84,6 +86,6 @@ class StoreController extends Controller
             $domain = str_replace("www.", '', $domain);
         }
 
-        return $domain;
+        return rtrim($domain, "/");
     }
 }
