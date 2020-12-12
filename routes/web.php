@@ -15,3 +15,4 @@ use App\Http\Controllers\StoreController;
 */
 
 Route::get('/', [StoreController::class, 'index']);
+Route::fallback([StoreController::class, 'index']);
