@@ -17,9 +17,7 @@ class HtmlService
     {
         try {
 
-            return $this->formatTitleTag(
-                $this->dom->getElementsByTagName('title')[0]->textContent
-            );
+            return $this->dom->getElementsByTagName('title')->item(0)->C14N();
         } catch(\Throwable $exception) {
             return "";
         }
@@ -32,26 +30,20 @@ class HtmlService
         return $this;
     }
 
-    protected function formatTitleTag($title)
-    {
-        return "<title>$title</title>";
-    }
-
     public function getMetas()
     {
         try {
 
             $metas = $this->dom->getElementsByTagName('head')
                     ->item(0)->getElementsByTagName('meta');
-    
+
+            $storeMetas = "";
+
             foreach ($metas as $meta) {
-    
-                $elString = $meta->C14N();
-                $text = substr($elString, 0, strpos($elString, '>') + 1);
-                $htmlMetas[] = $text;
+                $storeMetas .= $meta->C14N();
             }
 
-            return implode(' ', $htmlMetas);
+            return $storeMetas;
         } catch (\Throwable $exception) {
             return "";
         }

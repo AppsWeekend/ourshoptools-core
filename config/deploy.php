@@ -96,7 +96,7 @@ return [
 
     'options' => [
         'application' => env('APP_NAME', 'Laravel'),
-        'repository' => 'git@github.com:AppsWeekend/ourshoptools-core.git',
+        'repository' => 'git@github-gabriel:AppsWeekend/ourshoptools-core.git',
         'php_fpm_service' => 'php7.3-fpm',
     ],
 
